@@ -11,34 +11,34 @@
 
 	var button = function(img, size, newState){
 		var gap = Math.round(size*(1-1/PHI)/2);
-		var cursor_id = ui.uniqueString();
+		var cursorId = ui.uniqueString();
 		
-		var child_touch = {
+		var childTouch = {
 			x0:0, x1:size,
 			y0:0, y1:size,
 			cursor: true,
-			cursor_id: cursor_id,
-			cursor_click: function(){
+			cursorId: cursorId,
+			cursorClick: function(){
 				state = newState;
 				ui.refresh(REFRESH_STATE);
 			},
         };
-		var child_img = {
+		var childImg = {
         	x0:gap, x1:size-gap,
         	y0:gap, y1:size-gap,
         	u0:0, u1:1,
         	v0:0, v1:1,
-        	refresh : [cursor_id],
+        	refresh : [cursorId],
         	get alpha(){
-        		return (ui.cursorState(cursor_id)=="down")?1:(1/PHI);
+        		return (ui.cursorState(cursorId)=="down")?1:(1/PHI);
         	} ,
         	img: img,
         };
  
-		return {child:[child_touch, child_img]};
+		return {child:[childTouch, childImg]};
 	}
 
-	var main_page = {
+	var mainPage = {
 		get condition() {
 			return state == STATE_MAIN;
 		},
@@ -48,7 +48,7 @@
 		],
 	};
 	
-	var menu_page = {
+	var menuPage = {
 		get condition() {
 			return state == STATE_MENU;
 		},
@@ -59,10 +59,10 @@
 	};
 
 	var ret = {
-		clear_color : "#ff7f7f7f",
+		clearColor : "#ff7f7f7f",
 		child : [
-	        main_page,
-	        menu_page,
+	        mainPage,
+	        menuPage,
         ],
 	};
 

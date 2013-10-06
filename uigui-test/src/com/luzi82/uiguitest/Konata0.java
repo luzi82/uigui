@@ -12,6 +12,29 @@ import com.luzi82.uigui.UgUi;
 public class Konata0 {
 
 	@Test
+	public void clear() {
+		UgEnvironment env = new UgEnvironment();
+
+		UgUi ui = UgUi.readFile("res/clear.js", env, null);
+
+		UgGraphicsRecorder graphicsRecorder = new UgGraphicsRecorder();
+		ui.paint(graphicsRecorder);
+
+		UgGraphicsRecorder.Record[] recordAry = graphicsRecorder.getRecordAry();
+		UgGraphicsRecorder.Record record;
+
+		int i = 0;
+		UgGraphicsRecorder.Clear clear;
+
+		record = recordAry[i++];
+		Assert.assertTrue(record instanceof UgGraphicsRecorder.Clear);
+		clear = (UgGraphicsRecorder.Clear) record;
+		Assert.assertEquals(0xff7f7f7f, clear.color.argb);
+
+		Assert.assertEquals(i, recordAry.length);
+	}
+
+	@Test
 	public void konata0() {
 		UgEnvironment env = new UgEnvironment();
 		env.mm = 10;

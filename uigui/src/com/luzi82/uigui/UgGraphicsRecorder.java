@@ -1,7 +1,7 @@
 package com.luzi82.uigui;
 
 
-public class UgGraphicsRecorder {
+public class UgGraphicsRecorder implements UgGraphics {
 
 	public class Image extends Record {
 

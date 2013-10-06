@@ -6,7 +6,7 @@ public class UgUi {
 		return null;
 	}
 
-	public void paint(UgGraphicsRecorder graphicsRecorder) {
+	public void paint(UgGraphics graphicsRecorder) {
 		// TODO Auto-generated method stub
 		
 	}
