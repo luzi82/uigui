@@ -1,21 +1,30 @@
 package com.luzi82.uiguitest;
 
-import static org.junit.Assert.*;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mozilla.javascript.Context;
 
-import com.luzi82.uigui.UgEnvironment;
 import com.luzi82.uigui.UgGraphicsRecorder;
+import com.luzi82.uigui.UgPal;
 import com.luzi82.uigui.UgUi;
+import com.luzi82.uigui.UgUtil;
 
 public class Konata0 {
 
 	@Test
-	public void clear() {
-		UgEnvironment env = new UgEnvironment();
+	public void color() {
+		Assert.assertEquals(0x00000000, UgUtil.color("#00000000"));
+		Assert.assertEquals(0x01020304, UgUtil.color("#01020304"));
+		Assert.assertEquals(0xffffffff, UgUtil.color("#ffffffff"));
+	}
 
-		UgUi ui = UgUi.readFile("res/clear.js", env, null);
+	@Test
+	public void clear() throws IOException {
+		UgUi ui = new UgUi("res/clear.js", new Pal(), null);
 
 		UgGraphicsRecorder graphicsRecorder = new UgGraphicsRecorder();
 		ui.paint(graphicsRecorder);
@@ -29,17 +38,17 @@ public class Konata0 {
 		record = recordAry[i++];
 		Assert.assertTrue(record instanceof UgGraphicsRecorder.Clear);
 		clear = (UgGraphicsRecorder.Clear) record;
-		Assert.assertEquals(0xff7f7f7f, clear.color.argb);
+		Assert.assertEquals(0xff7f7f7f, clear.color);
 
 		Assert.assertEquals(i, recordAry.length);
 	}
 
 	@Test
-	public void konata0() {
-		UgEnvironment env = new UgEnvironment();
-		env.mm = 10;
+	public void konata0() throws IOException {
+		Pal pal = new Pal();
+		pal.mm = 10;
 
-		UgUi ui = UgUi.readFile("res/konata0.js", env, null);
+		UgUi ui = new UgUi("res/konata0.js", pal, null);
 
 		UgGraphicsRecorder graphicsRecorder = new UgGraphicsRecorder();
 		ui.paint(graphicsRecorder);
@@ -54,7 +63,7 @@ public class Konata0 {
 		record = recordAry[i++];
 		Assert.assertTrue(record instanceof UgGraphicsRecorder.Clear);
 		clear = (UgGraphicsRecorder.Clear) record;
-		Assert.assertEquals(0xff7f7f7f, clear.color.argb);
+		Assert.assertEquals(0xff7f7f7f, clear.color);
 
 		record = recordAry[i++];
 		Assert.assertTrue(record instanceof UgGraphicsRecorder.Image);
@@ -71,6 +80,15 @@ public class Konata0 {
 		Assert.assertEquals("res/menu_btn.png", image.img);
 
 		Assert.assertEquals(i, recordAry.length);
+	}
+
+	class Pal extends UgPal {
+
+		@Override
+		public Reader getReader(String resourceId) throws IOException {
+			return new FileReader(resourceId);
+		}
+
 	}
 
 }

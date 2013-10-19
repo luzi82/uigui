@@ -9,7 +9,7 @@
 	
 	var state = STATE_MAIN;
 
-	var button = function(img, size, newState){
+	var menu_btn = function(img, size, newState){
 		var gap = Math.round(size*(1-1/PHI)/2);
 		var cursorId = ui.uniqueString();
 		

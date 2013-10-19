@@ -1,7 +1,10 @@
 package com.luzi82.uigui;
 
+import java.util.LinkedList;
 
 public class UgGraphicsRecorder implements UgGraphics {
+
+	LinkedList<Record> recordList = new LinkedList<Record>();
 
 	public class Image extends Record {
 
@@ -20,8 +23,15 @@ public class UgGraphicsRecorder implements UgGraphics {
 
 	public class Clear extends Record {
 
-		public Color color;
+		public int color;
 
+	}
+
+	@Override
+	public void clear(int color) {
+		Clear r = new Clear();
+		r.color = color;
+		recordList.add(r);
 	}
 
 	public class Record {
@@ -29,7 +39,7 @@ public class UgGraphicsRecorder implements UgGraphics {
 	}
 
 	public Record[] getRecordAry() {
-		return null;
+		return recordList.toArray(new Record[0]);
 	}
 
 }

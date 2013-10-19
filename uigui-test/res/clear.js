@@ -1,4 +1,4 @@
-(function(ui, env, arg) {
+(function(ug, env, arg) {
 	
 	var ret = {
 		clearColor : "#ff7f7f7f",
