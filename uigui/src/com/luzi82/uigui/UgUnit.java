@@ -1,7 +1,7 @@
 package com.luzi82.uigui;
 
 public class UgUnit {
-	public Boolean enable;
+	public boolean enable;
 	public Integer clearColor;
 	public UgUnit[] child;
 	public Float dx;

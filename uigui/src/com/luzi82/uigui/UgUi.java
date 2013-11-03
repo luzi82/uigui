@@ -62,6 +62,14 @@ public class UgUi {
 		if (scriptable == null)
 			return null;
 		UgUnit ret = new UgUnit();
+		if (scriptable.has("enable", scriptable)) {
+			ret.enable = (boolean) scriptable.get("enable", scriptable);
+		} else {
+			ret.enable = true;
+		}
+		// when not enabled, no need to output other value
+		if (!ret.enable)
+			return ret;
 		if (scriptable.has("clearColor", scriptable)) {
 			String colorString = (String) scriptable.get("clearColor",
 					scriptable);

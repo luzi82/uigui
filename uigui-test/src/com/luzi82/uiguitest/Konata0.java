@@ -26,7 +26,7 @@ public class Konata0 {
 		UgUi ui = new UgUi("res/clear.js", new Pal(), null);
 
 		UgUnit unit = ui.getUnit();
-		Assert.assertEquals(0xff7f7f7f,(int) unit.clearColor);
+		Assert.assertEquals(0xff7f7f7f, (int) unit.clearColor);
 	}
 
 	@Test
@@ -34,8 +34,8 @@ public class Konata0 {
 		UgUi ui = new UgUi("res/translate.js", new Pal(), null);
 
 		UgUnit unit = ui.getUnit();
-		Assert.assertEquals(1, unit.dx,0.001f);
-		Assert.assertEquals(2, unit.dy,0.001f);
+		Assert.assertEquals(1, unit.dx, 0.001f);
+		Assert.assertEquals(2, unit.dy, 0.001f);
 	}
 
 	@Test
@@ -43,11 +43,23 @@ public class Konata0 {
 		UgUi ui = new UgUi("res/child.js", new Pal(), null);
 
 		UgUnit unit = ui.getUnit();
-		
-		Assert.assertEquals(3,unit.child.length);
-		Assert.assertEquals(1,unit.child[0].dx,0.001f);
-		Assert.assertEquals(2,unit.child[1].dx,0.001f);
-		Assert.assertEquals(3,unit.child[2].dx,0.001f);
+
+		Assert.assertEquals(3, unit.child.length);
+		Assert.assertEquals(1, unit.child[0].dx, 0.001f);
+		Assert.assertEquals(2, unit.child[1].dx, 0.001f);
+		Assert.assertEquals(3, unit.child[2].dx, 0.001f);
+	}
+
+	@Test
+	public void enable() throws IOException {
+		UgUi ui = new UgUi("res/enable.js", new Pal(), null);
+
+		UgUnit unit = ui.getUnit();
+
+		Assert.assertEquals(3, unit.child.length);
+		Assert.assertEquals(true, unit.child[0].enable);
+		Assert.assertEquals(true, unit.child[1].enable);
+		Assert.assertEquals(false, unit.child[2].enable);
 	}
 
 	@Test
@@ -58,12 +70,12 @@ public class Konata0 {
 		UgUi ui = new UgUi("res/konata0.js", pal, null);
 
 		UgUnit unit = ui.getUnit();
-		
-		Assert.assertEquals(0xff7f7f7f,(int) unit.clearColor);
-		Assert.assertEquals(2,unit.child.length);
 
-		Assert.assertEquals(true,unit.child[0].enable);
-		Assert.assertEquals(2,unit.child[0].child.length);
+		Assert.assertEquals(0xff7f7f7f, (int) unit.clearColor);
+		Assert.assertEquals(2, unit.child.length);
+
+		Assert.assertEquals(true, unit.child[0].enable);
+		Assert.assertEquals(2, unit.child[0].child.length);
 
 		Assert.assertEquals(0d, unit.child[0].child[0].x0, 0.0001);
 		Assert.assertEquals(0d, unit.child[0].child[0].x1, 0.0001);
@@ -71,7 +83,7 @@ public class Konata0 {
 		Assert.assertEquals(100d, unit.child[0].child[0].y1, 0.0001);
 		Assert.assertEquals(true, unit.child[0].child[0].cursor);
 		Assert.assertNotNull(unit.child[0].child[0].cursorId);
-		
+
 		Assert.assertEquals(19d, unit.child[0].child[1].x0, 0.0001);
 		Assert.assertEquals(19d, unit.child[0].child[1].x1, 0.0001);
 		Assert.assertEquals(81d, unit.child[0].child[1].y0, 0.0001);
@@ -81,10 +93,11 @@ public class Konata0 {
 		Assert.assertEquals(0d, unit.child[0].child[1].v0, 0.0001);
 		Assert.assertEquals(1d, unit.child[0].child[1].v1, 0.0001);
 		Assert.assertEquals(1, unit.child[0].child[1].refresh.length);
-		Assert.assertEquals(unit.child[0].child[0].cursorId, unit.child[0].child[1].refresh[0]);
+		Assert.assertEquals(unit.child[0].child[0].cursorId,
+				unit.child[0].child[1].refresh[0]);
 		Assert.assertEquals(0.618d, unit.child[0].child[1].alpha, 0.001);
-		
-		Assert.assertEquals(false,unit.child[1].enable);
+
+		Assert.assertEquals(false, unit.child[1].enable);
 	}
 
 	class Pal extends UgPal {
