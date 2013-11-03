@@ -1,4 +1,4 @@
-(function(ui, env, arg) {
+(function(ug, pal, arg) {
 	
 	var PHI = (1+Math.sqrt(5))/2;
 	
@@ -11,7 +11,7 @@
 
 	var menu_btn = function(img, size, newState){
 		var gap = Math.round(size*(1-1/PHI)/2);
-		var cursorId = ui.uniqueString();
+		var cursorId = ug.uniqueString();
 		
 		var childTouch = {
 			x0:0, x1:size,
@@ -20,7 +20,7 @@
 			cursorId: cursorId,
 			cursorClick: function(){
 				state = newState;
-				ui.refresh(REFRESH_STATE);
+				ug.refresh(REFRESH_STATE);
 			},
         };
 		var childImg = {
@@ -30,7 +30,7 @@
         	v0:0, v1:1,
         	refresh : [cursorId],
         	get alpha(){
-        		return (ui.cursorState(cursorId)=="down")?1:(1/PHI);
+        		return (ug.cursorState(cursorId)=="down")?1:(1/PHI);
         	} ,
         	img: img,
         };
@@ -39,22 +39,22 @@
 	}
 
 	var mainPage = {
-		get condition() {
+		get enable() {
 			return state == STATE_MAIN;
 		},
 		refresh : [REFRESH_STATE],
 		child : [
-        	menu_btn("res/menu_btn.png",Math.round(10*env.mm),STATE_MENU),
+        	menu_btn("res/menu_btn.png",Math.round(10*pal.mm),STATE_MENU),
 		],
 	};
 	
 	var menuPage = {
-		get condition() {
+		get enable() {
 			return state == STATE_MENU;
 		},
 		refresh : [REFRESH_STATE],
 		child : [
-        	menu_btn("res/back_btn.png",Math.round(10*env.mm),STATE_MAIN),
+        	menu_btn("res/back_btn.png",Math.round(10*pal.mm),STATE_MAIN),
 		],
 	};
 

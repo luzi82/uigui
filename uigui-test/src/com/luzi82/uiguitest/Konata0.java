@@ -6,11 +6,10 @@ import java.io.Reader;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mozilla.javascript.Context;
 
-import com.luzi82.uigui.UgGraphicsRecorder;
 import com.luzi82.uigui.UgPal;
 import com.luzi82.uigui.UgUi;
+import com.luzi82.uigui.UgUnit;
 import com.luzi82.uigui.UgUtil;
 
 public class Konata0 {
@@ -26,21 +25,29 @@ public class Konata0 {
 	public void clear() throws IOException {
 		UgUi ui = new UgUi("res/clear.js", new Pal(), null);
 
-		UgGraphicsRecorder graphicsRecorder = new UgGraphicsRecorder();
-		ui.paint(graphicsRecorder);
+		UgUnit unit = ui.getUnit();
+		Assert.assertEquals(0xff7f7f7f,(int) unit.clearColor);
+	}
 
-		UgGraphicsRecorder.Record[] recordAry = graphicsRecorder.getRecordAry();
-		UgGraphicsRecorder.Record record;
+	@Test
+	public void translate() throws IOException {
+		UgUi ui = new UgUi("res/translate.js", new Pal(), null);
 
-		int i = 0;
-		UgGraphicsRecorder.Clear clear;
+		UgUnit unit = ui.getUnit();
+		Assert.assertEquals(1, unit.dx,0.001f);
+		Assert.assertEquals(2, unit.dy,0.001f);
+	}
 
-		record = recordAry[i++];
-		Assert.assertTrue(record instanceof UgGraphicsRecorder.Clear);
-		clear = (UgGraphicsRecorder.Clear) record;
-		Assert.assertEquals(0xff7f7f7f, clear.color);
+	@Test
+	public void child() throws IOException {
+		UgUi ui = new UgUi("res/child.js", new Pal(), null);
 
-		Assert.assertEquals(i, recordAry.length);
+		UgUnit unit = ui.getUnit();
+		
+		Assert.assertEquals(3,unit.child.length);
+		Assert.assertEquals(1,unit.child[0].dx,0.001f);
+		Assert.assertEquals(2,unit.child[1].dx,0.001f);
+		Assert.assertEquals(3,unit.child[2].dx,0.001f);
 	}
 
 	@Test
@@ -50,36 +57,34 @@ public class Konata0 {
 
 		UgUi ui = new UgUi("res/konata0.js", pal, null);
 
-		UgGraphicsRecorder graphicsRecorder = new UgGraphicsRecorder();
-		ui.paint(graphicsRecorder);
+		UgUnit unit = ui.getUnit();
+		
+		Assert.assertEquals(0xff7f7f7f,(int) unit.clearColor);
+		Assert.assertEquals(2,unit.child.length);
 
-		UgGraphicsRecorder.Record[] recordAry = graphicsRecorder.getRecordAry();
-		UgGraphicsRecorder.Record record;
+		Assert.assertEquals(true,unit.child[0].enable);
+		Assert.assertEquals(2,unit.child[0].child.length);
 
-		int i = 0;
-		UgGraphicsRecorder.Clear clear;
-		UgGraphicsRecorder.Image image;
-
-		record = recordAry[i++];
-		Assert.assertTrue(record instanceof UgGraphicsRecorder.Clear);
-		clear = (UgGraphicsRecorder.Clear) record;
-		Assert.assertEquals(0xff7f7f7f, clear.color);
-
-		record = recordAry[i++];
-		Assert.assertTrue(record instanceof UgGraphicsRecorder.Image);
-		image = (UgGraphicsRecorder.Image) record;
-		Assert.assertEquals(19.0d, image.x0, 0.0001);
-		Assert.assertEquals(19.0d, image.y0, 0.0001);
-		Assert.assertEquals(81.0d, image.x1, 0.0001);
-		Assert.assertEquals(81.0d, image.y1, 0.0001);
-		Assert.assertEquals(0.0d, image.u0, 0.0001);
-		Assert.assertEquals(0.0d, image.u1, 0.0001);
-		Assert.assertEquals(1.0d, image.v0, 0.0001);
-		Assert.assertEquals(1.0d, image.v1, 0.0001);
-		Assert.assertEquals(0.618d, image.alpha, 0.001);
-		Assert.assertEquals("res/menu_btn.png", image.img);
-
-		Assert.assertEquals(i, recordAry.length);
+		Assert.assertEquals(0d, unit.child[0].child[0].x0, 0.0001);
+		Assert.assertEquals(0d, unit.child[0].child[0].x1, 0.0001);
+		Assert.assertEquals(100d, unit.child[0].child[0].y0, 0.0001);
+		Assert.assertEquals(100d, unit.child[0].child[0].y1, 0.0001);
+		Assert.assertEquals(true, unit.child[0].child[0].cursor);
+		Assert.assertNotNull(unit.child[0].child[0].cursorId);
+		
+		Assert.assertEquals(19d, unit.child[0].child[1].x0, 0.0001);
+		Assert.assertEquals(19d, unit.child[0].child[1].x1, 0.0001);
+		Assert.assertEquals(81d, unit.child[0].child[1].y0, 0.0001);
+		Assert.assertEquals(81d, unit.child[0].child[1].y1, 0.0001);
+		Assert.assertEquals(0d, unit.child[0].child[1].u0, 0.0001);
+		Assert.assertEquals(1d, unit.child[0].child[1].u1, 0.0001);
+		Assert.assertEquals(0d, unit.child[0].child[1].v0, 0.0001);
+		Assert.assertEquals(1d, unit.child[0].child[1].v1, 0.0001);
+		Assert.assertEquals(1, unit.child[0].child[1].refresh.length);
+		Assert.assertEquals(unit.child[0].child[0].cursorId, unit.child[0].child[1].refresh[0]);
+		Assert.assertEquals(0.618d, unit.child[0].child[1].alpha, 0.001);
+		
+		Assert.assertEquals(false,unit.child[1].enable);
 	}
 
 	class Pal extends UgPal {

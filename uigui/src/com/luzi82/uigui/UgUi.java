@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
+import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.commonjs.module.Require;
 import org.mozilla.javascript.commonjs.module.RequireBuilder;
@@ -23,9 +24,13 @@ public class UgUi {
 	Function rootFunc;
 	Scriptable root;
 
+	UgJs ugjs;
+
 	public UgUi(String resourceId, UgPal pal, Object arg) throws IOException {
 		this.pal = pal;
 		this.arg = arg;
+
+		ugjs = new UgJs();
 
 		Context cx = Context.enter();
 
@@ -41,26 +46,37 @@ public class UgUi {
 		rootFunc = (Function) cx.evaluateReader(scope,
 				pal.getReader(resourceId), resourceId, 0, null);
 		root = (Scriptable) rootFunc.call(cx, scope, rootFunc, new Object[] {
-				this, pal, arg });
+				ugjs, pal, arg });
 
 		Context.exit();
 	}
 
-	public void paint(UgGraphics graphics) {
-		Context cx = Context.enter();
-		paintScriptable(cx, root, graphics);
-		Context.exit();
+	public UgUnit getUnit() {
+		return null;
 	}
 
-	private void paintScriptable(Context cx, Scriptable scriptable,
-			UgGraphics graphics) {
-		if (scriptable.has("clearColor", scriptable)) {
-			String colorString = (String) scriptable.get("clearColor",
-					scriptable);
-			int color = UgUtil.color(colorString);
-			graphics.clear(color);
-		}
-	}
+	// public void paint(UgGraphics graphics) {
+	// Context cx = Context.enter();
+	// paintScriptable(cx, root, graphics);
+	// Context.exit();
+	// }
+	//
+	// private void paintScriptable(Context cx, Scriptable scriptable,
+	// UgGraphics graphics) {
+	// if (scriptable.has("clearColor", scriptable)) {
+	// String colorString = (String) scriptable.get("clearColor",
+	// scriptable);
+	// int color = UgUtil.color(colorString);
+	// graphics.clear(color);
+	// }
+	// if (scriptable.has("child", scriptable)) {
+	// NativeArray sv = (NativeArray) scriptable.get("child", scriptable);
+	// int svSize = sv.size();
+	// for (int i = svSize - 1; i >= 0; --i) {
+	// paintScriptable(cx, (Scriptable) sv.get(i), graphics);
+	// }
+	// }
+	// }
 
 	public class MSP implements ModuleSourceProvider {
 
