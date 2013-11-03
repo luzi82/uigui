@@ -67,6 +67,22 @@ public class UgUi {
 					scriptable);
 			ret.clearColor = UgUtil.color(colorString);
 		}
+		if (scriptable.has("dx", scriptable)) {
+			ret.dx = ((Number) scriptable.get("dx", scriptable)).floatValue();
+		}
+		if (scriptable.has("dy", scriptable)) {
+			ret.dy = ((Number) scriptable.get("dy", scriptable)).floatValue();
+		}
+		if (scriptable.has("child", scriptable)) {
+			NativeArray sv = (NativeArray) scriptable.get("child", scriptable);
+			int svSize = sv.size();
+			if (svSize > 0) {
+				ret.child = new UgUnit[svSize];
+				for (int i = 0; i < svSize; ++i) {
+					ret.child[i] = toUnit(cx, (Scriptable) sv.get(i));
+				}
+			}
+		}
 		return ret;
 	}
 
