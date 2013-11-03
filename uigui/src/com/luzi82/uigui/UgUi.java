@@ -52,7 +52,22 @@ public class UgUi {
 	}
 
 	public UgUnit getUnit() {
-		return null;
+		Context cx = Context.enter();
+		UgUnit unit = toUnit(cx, root);
+		Context.exit();
+		return unit;
+	}
+
+	private UgUnit toUnit(Context cx, Scriptable scriptable) {
+		if (scriptable == null)
+			return null;
+		UgUnit ret = new UgUnit();
+		if (scriptable.has("clearColor", scriptable)) {
+			String colorString = (String) scriptable.get("clearColor",
+					scriptable);
+			ret.clearColor = UgUtil.color(colorString);
+		}
+		return ret;
 	}
 
 	// public void paint(UgGraphics graphics) {
