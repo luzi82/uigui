@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.NativeArray;
+import org.mozilla.javascript.NativeJavaObject;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.commonjs.module.Require;
 import org.mozilla.javascript.commonjs.module.RequireBuilder;
@@ -63,7 +64,7 @@ public class UgUi {
 			return null;
 		UgUnit ret = new UgUnit();
 		if (scriptable.has("enable", scriptable)) {
-			ret.enable = (boolean) scriptable.get("enable", scriptable);
+			ret.enable = (boolean) unwrap(scriptable, "enable");
 		} else {
 			ret.enable = true;
 		}
@@ -71,47 +72,46 @@ public class UgUi {
 		if (!ret.enable)
 			return ret;
 		if (scriptable.has("clearColor", scriptable)) {
-			String colorString = (String) scriptable.get("clearColor",
-					scriptable);
+			String colorString = (String) unwrap(scriptable, "clearColor");
 			ret.clearColor = UgUtil.color(colorString);
 		}
 		if (scriptable.has("dx", scriptable)) {
-			ret.dx = ((Number) scriptable.get("dx", scriptable)).floatValue();
+			ret.dx = ((Number) unwrap(scriptable, "dx")).floatValue();
 		}
 		if (scriptable.has("dy", scriptable)) {
-			ret.dy = ((Number) scriptable.get("dy", scriptable)).floatValue();
+			ret.dy = ((Number) unwrap(scriptable, "dy")).floatValue();
 		}
 		if (scriptable.has("x0", scriptable)) {
-			ret.x0 = ((Number) scriptable.get("x0", scriptable)).floatValue();
+			ret.x0 = ((Number) unwrap(scriptable, "x0")).floatValue();
 		}
 		if (scriptable.has("x1", scriptable)) {
-			ret.x1 = ((Number) scriptable.get("x1", scriptable)).floatValue();
+			ret.x1 = ((Number) unwrap(scriptable, "x1")).floatValue();
 		}
 		if (scriptable.has("y0", scriptable)) {
-			ret.y0 = ((Number) scriptable.get("y0", scriptable)).floatValue();
+			ret.y0 = ((Number) unwrap(scriptable, "y0")).floatValue();
 		}
 		if (scriptable.has("y1", scriptable)) {
-			ret.y1 = ((Number) scriptable.get("y1", scriptable)).floatValue();
+			ret.y1 = ((Number) unwrap(scriptable, "y1")).floatValue();
 		}
 		if (scriptable.has("u0", scriptable)) {
-			ret.u0 = ((Number) scriptable.get("u0", scriptable)).floatValue();
+			ret.u0 = ((Number) unwrap(scriptable, "u0")).floatValue();
 		}
 		if (scriptable.has("u1", scriptable)) {
-			ret.u1 = ((Number) scriptable.get("u1", scriptable)).floatValue();
+			ret.u1 = ((Number) unwrap(scriptable, "u1")).floatValue();
 		}
 		if (scriptable.has("v0", scriptable)) {
-			ret.v0 = ((Number) scriptable.get("v0", scriptable)).floatValue();
+			ret.v0 = ((Number) unwrap(scriptable, "v0")).floatValue();
 		}
 		if (scriptable.has("v1", scriptable)) {
-			ret.v1 = ((Number) scriptable.get("v1", scriptable)).floatValue();
+			ret.v1 = ((Number) unwrap(scriptable, "v1")).floatValue();
 		}
 		if (scriptable.has("cursor", scriptable)) {
-			ret.cursor = (boolean) scriptable.get("cursor", scriptable);
+			ret.cursor = (boolean) unwrap(scriptable, "cursor");
 		} else {
 			ret.cursor = false;
 		}
 		if (scriptable.has("cursorId", scriptable)) {
-			ret.cursorId = (String) scriptable.get("cursorId", scriptable);
+			ret.cursorId = (String) unwrap(scriptable, "cursorId");
 		}
 		if (scriptable.has("refresh", scriptable)) {
 			NativeArray na = (NativeArray) scriptable
@@ -123,8 +123,7 @@ public class UgUi {
 			}
 		}
 		if (scriptable.has("alpha", scriptable)) {
-			ret.alpha = ((Number) scriptable.get("alpha", scriptable))
-					.floatValue();
+			ret.alpha = ((Number) unwrap(scriptable, "alpha")).floatValue();
 		}
 		if (scriptable.has("child", scriptable)) {
 			NativeArray sv = (NativeArray) scriptable.get("child", scriptable);
@@ -137,28 +136,19 @@ public class UgUi {
 		return ret;
 	}
 
-	// public void paint(UgGraphics graphics) {
-	// Context cx = Context.enter();
-	// paintScriptable(cx, root, graphics);
-	// Context.exit();
-	// }
-	//
-	// private void paintScriptable(Context cx, Scriptable scriptable,
-	// UgGraphics graphics) {
-	// if (scriptable.has("clearColor", scriptable)) {
-	// String colorString = (String) scriptable.get("clearColor",
-	// scriptable);
-	// int color = UgUtil.color(colorString);
-	// graphics.clear(color);
-	// }
-	// if (scriptable.has("child", scriptable)) {
-	// NativeArray sv = (NativeArray) scriptable.get("child", scriptable);
-	// int svSize = sv.size();
-	// for (int i = svSize - 1; i >= 0; --i) {
-	// paintScriptable(cx, (Scriptable) sv.get(i), graphics);
-	// }
-	// }
-	// }
+	public static Object unwrap(Object obj) {
+		if (obj == null)
+			return null;
+		if (!(obj instanceof NativeJavaObject)) {
+			return obj;
+		}
+		NativeJavaObject njo = (NativeJavaObject) obj;
+		return unwrap(njo.unwrap());
+	}
+
+	public static Object unwrap(Scriptable scriptable, String name) {
+		return unwrap(scriptable.get(name, scriptable));
+	}
 
 	public class MSP implements ModuleSourceProvider {
 
