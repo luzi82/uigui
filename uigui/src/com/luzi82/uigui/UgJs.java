@@ -9,4 +9,9 @@ public class UgJs {
 		return ret;
 	}
 
+	public String cursorState(String cursorId) {
+		// TODO dummy
+		return "up";
+	}
+
 }
