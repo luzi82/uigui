@@ -14,7 +14,7 @@ public class UgUnit {
 	public Float u1;
 	public Float v0;
 	public Float v1;
-	public Boolean cursor;
+	public boolean cursor;
 	public String cursorId;
 	public String[] refresh;
 	public Float alpha;

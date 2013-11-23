@@ -81,14 +81,57 @@ public class UgUi {
 		if (scriptable.has("dy", scriptable)) {
 			ret.dy = ((Number) scriptable.get("dy", scriptable)).floatValue();
 		}
+		if (scriptable.has("x0", scriptable)) {
+			ret.x0 = ((Number) scriptable.get("x0", scriptable)).floatValue();
+		}
+		if (scriptable.has("x1", scriptable)) {
+			ret.x1 = ((Number) scriptable.get("x1", scriptable)).floatValue();
+		}
+		if (scriptable.has("y0", scriptable)) {
+			ret.y0 = ((Number) scriptable.get("y0", scriptable)).floatValue();
+		}
+		if (scriptable.has("y1", scriptable)) {
+			ret.y1 = ((Number) scriptable.get("y1", scriptable)).floatValue();
+		}
+		if (scriptable.has("u0", scriptable)) {
+			ret.u0 = ((Number) scriptable.get("u0", scriptable)).floatValue();
+		}
+		if (scriptable.has("u1", scriptable)) {
+			ret.u1 = ((Number) scriptable.get("u1", scriptable)).floatValue();
+		}
+		if (scriptable.has("v0", scriptable)) {
+			ret.v0 = ((Number) scriptable.get("v0", scriptable)).floatValue();
+		}
+		if (scriptable.has("v1", scriptable)) {
+			ret.v1 = ((Number) scriptable.get("v1", scriptable)).floatValue();
+		}
+		if (scriptable.has("cursor", scriptable)) {
+			ret.cursor = (boolean) scriptable.get("cursor", scriptable);
+		} else {
+			ret.cursor = false;
+		}
+		if (scriptable.has("cursorId", scriptable)) {
+			ret.cursorId = (String) scriptable.get("cursorId", scriptable);
+		}
+		if (scriptable.has("refresh", scriptable)) {
+			NativeArray na = (NativeArray) scriptable
+					.get("refresh", scriptable);
+			int naSize = na.size();
+			ret.refresh = new String[naSize];
+			for (int i = 0; i < naSize; ++i) {
+				ret.refresh[i] = (String) na.get(i);
+			}
+		}
+		if (scriptable.has("alpha", scriptable)) {
+			ret.alpha = ((Number) scriptable.get("alpha", scriptable))
+					.floatValue();
+		}
 		if (scriptable.has("child", scriptable)) {
 			NativeArray sv = (NativeArray) scriptable.get("child", scriptable);
 			int svSize = sv.size();
-			if (svSize > 0) {
-				ret.child = new UgUnit[svSize];
-				for (int i = 0; i < svSize; ++i) {
-					ret.child[i] = toUnit(cx, (Scriptable) sv.get(i));
-				}
+			ret.child = new UgUnit[svSize];
+			for (int i = 0; i < svSize; ++i) {
+				ret.child[i] = toUnit(cx, (Scriptable) sv.get(i));
 			}
 		}
 		return ret;
