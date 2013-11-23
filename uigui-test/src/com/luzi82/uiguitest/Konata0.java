@@ -64,6 +64,16 @@ public class Konata0 {
 	}
 
 	@Test
+	public void uniqueString() throws IOException {
+		UgUi ui = new UgUi("res/uniqueString.js", new Pal(), null);
+
+		UgUnit unit = ui.getUnit();
+		String v = unit.cursorId;
+		Assert.assertNotNull(v);
+		Assert.assertTrue(v.length() > 0);
+	}
+
+	@Test
 	public void child() throws IOException {
 		UgUi ui = new UgUi("res/child.js", new Pal(), null);
 
