@@ -115,8 +115,8 @@ public class Konata0 {
 		Assert.assertEquals(2, unit.child[0].child[0].child.length);
 
 		Assert.assertEquals(0d, unit.child[0].child[0].child[0].x0, 0.0001);
-		Assert.assertEquals(0d, unit.child[0].child[0].child[0].x1, 0.0001);
-		Assert.assertEquals(100d, unit.child[0].child[0].child[0].y0, 0.0001);
+		Assert.assertEquals(100d, unit.child[0].child[0].child[0].x1, 0.0001);
+		Assert.assertEquals(0d, unit.child[0].child[0].child[0].y0, 0.0001);
 		Assert.assertEquals(100d, unit.child[0].child[0].child[0].y1, 0.0001);
 		Assert.assertEquals(true, unit.child[0].child[0].child[0].cursor);
 		Assert.assertNotNull(unit.child[0].child[0].child[0].cursorId);
