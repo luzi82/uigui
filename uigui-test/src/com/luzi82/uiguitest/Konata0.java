@@ -55,7 +55,7 @@ public class Konata0 {
 		Assert.assertEquals(9, unit.v0, 0.001f);
 		Assert.assertEquals(10, unit.v1, 0.001f);
 		Assert.assertEquals(true, unit.cursor);
-		Assert.assertEquals("test_cur", unit.cursorId, 0.001f);
+		Assert.assertEquals("test_cur", unit.cursorId);
 		Assert.assertEquals(3, unit.refresh.length);
 		Assert.assertEquals("ref_a", unit.refresh[0]);
 		Assert.assertEquals("ref_b", unit.refresh[1]);
