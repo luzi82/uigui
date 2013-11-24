@@ -31,6 +31,24 @@ public class CenterLogo {
 	}
 
 	@Test
+	public void preloadImgRepeat() throws IOException {
+		Pal pal = new Pal();
+		pal.mm = 10;
+		pal.width = 800;
+		pal.height = 600;
+
+		UgUi ui = new UgUi("res/preloadImgRepeat.js", pal, null);
+		List<String> imgList = ui.getPreloadImgList();
+		Assert.assertEquals(6, imgList.size());
+		Assert.assertTrue(imgList.contains("img_a"));
+		Assert.assertTrue(imgList.contains("img_b"));
+		Assert.assertTrue(imgList.contains("img_c"));
+		Assert.assertTrue(imgList.contains("img_d"));
+		Assert.assertTrue(imgList.contains("img_e"));
+		Assert.assertTrue(imgList.contains("img_f"));
+	}
+
+	@Test
 	public void centerLogo() throws IOException {
 		Pal pal = new Pal();
 		pal.mm = 10;
