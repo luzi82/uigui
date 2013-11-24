@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
@@ -61,11 +64,6 @@ public class UgUi {
 		Context.exit();
 		return rootUnit;
 	}
-
-//	public List<String> getPreloadImageList() {
-//		UgUnit ru = getUnit();
-//		
-//	}
 
 	private UgUnit toUnit(Context cx, Scriptable scriptable) {
 		if (scriptable == null)
@@ -134,13 +132,16 @@ public class UgUi {
 			ret.alpha = ((Number) unwrap(scriptable, "alpha")).floatValue();
 		}
 		if (scriptable.has("preloadImg", scriptable)) {
-			NativeArray na = (NativeArray) scriptable
-					.get("preloadImg", scriptable);
+			NativeArray na = (NativeArray) scriptable.get("preloadImg",
+					scriptable);
 			int naSize = na.size();
 			ret.preloadImg = new String[naSize];
 			for (int i = 0; i < naSize; ++i) {
 				ret.preloadImg[i] = (String) na.get(i);
 			}
+		}
+		if (scriptable.has("img", scriptable)) {
+			ret.img = ((String) unwrap(scriptable, "img"));
 		}
 		if (scriptable.has("child", scriptable)) {
 			NativeArray sv = (NativeArray) scriptable.get("child", scriptable);
@@ -183,6 +184,24 @@ public class UgUi {
 			return null;
 		}
 
+	}
+
+	public List<String> getPreloadImgList() {
+		LinkedList<String> ret = new LinkedList<>();
+		UgUnit u = getUnit();
+		fillPreloadImgList(ret, u);
+		return ret;
+	}
+
+	private static void fillPreloadImgList(List<String> ret, UgUnit unit) {
+		if (unit.preloadImg != null) {
+			ret.addAll(Arrays.asList(unit.preloadImg));
+		}
+		if (unit.child != null) {
+			for (UgUnit c : unit.child) {
+				fillPreloadImgList(ret, c);
+			}
+		}
 	}
 
 }

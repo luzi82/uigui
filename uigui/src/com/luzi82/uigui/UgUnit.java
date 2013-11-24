@@ -19,4 +19,5 @@ public class UgUnit {
 	public String[] refresh;
 	public Float alpha;
 	public String[] preloadImg;
+	public String img;
 }
