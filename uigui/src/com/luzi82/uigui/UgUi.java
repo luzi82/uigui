@@ -62,6 +62,11 @@ public class UgUi {
 		return rootUnit;
 	}
 
+//	public List<String> getPreloadImageList() {
+//		UgUnit ru = getUnit();
+//		
+//	}
+
 	private UgUnit toUnit(Context cx, Scriptable scriptable) {
 		if (scriptable == null)
 			return null;
@@ -127,6 +132,15 @@ public class UgUi {
 		}
 		if (scriptable.has("alpha", scriptable)) {
 			ret.alpha = ((Number) unwrap(scriptable, "alpha")).floatValue();
+		}
+		if (scriptable.has("preloadImg", scriptable)) {
+			NativeArray na = (NativeArray) scriptable
+					.get("preloadImg", scriptable);
+			int naSize = na.size();
+			ret.preloadImg = new String[naSize];
+			for (int i = 0; i < naSize; ++i) {
+				ret.preloadImg[i] = (String) na.get(i);
+			}
 		}
 		if (scriptable.has("child", scriptable)) {
 			NativeArray sv = (NativeArray) scriptable.get("child", scriptable);
