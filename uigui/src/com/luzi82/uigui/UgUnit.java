@@ -18,4 +18,5 @@ public class UgUnit {
 	public String cursorId;
 	public String[] refresh;
 	public Float alpha;
+	public String[] preloadImg;
 }
