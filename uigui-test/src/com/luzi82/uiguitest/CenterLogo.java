@@ -3,6 +3,7 @@ package com.luzi82.uiguitest;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,6 +13,22 @@ import com.luzi82.uigui.UgUi;
 import com.luzi82.uigui.UgUnit;
 
 public class CenterLogo {
+
+	@Test
+	public void preloadImg() throws IOException {
+		Pal pal = new Pal();
+		pal.mm = 10;
+		pal.width = 800;
+		pal.height = 600;
+
+		UgUi ui = new UgUi("res/preloadImg.js", pal, null);
+		List<String> imgList = ui.getPreloadImgList();
+		Assert.assertEquals(4, imgList.size());
+		Assert.assertTrue(imgList.contains("img_a"));
+		Assert.assertTrue(imgList.contains("img_b"));
+		Assert.assertTrue(imgList.contains("img_c"));
+		Assert.assertTrue(imgList.contains("img_d"));
+	}
 
 	@Test
 	public void centerLogo() throws IOException {
