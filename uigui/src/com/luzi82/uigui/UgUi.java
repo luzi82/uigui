@@ -194,6 +194,9 @@ public class UgUi {
 	}
 
 	private static void fillPreloadImgList(List<String> ret, UgUnit unit) {
+		if (unit.img != null) {
+			ret.add(unit.img);
+		}
 		if (unit.preloadImg != null) {
 			ret.addAll(Arrays.asList(unit.preloadImg));
 		}
