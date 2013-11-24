@@ -16,6 +16,8 @@
 		refresh: ["ref_a","ref_b","ref_c"],
 		
 		alpha: 0.5,
+		
+		preloadImg:["img_a","img_b","img_c"],
 	};
 
 });
