@@ -24,6 +24,7 @@ public class UgUi {
 	Scriptable scope;
 	Function rootFunc;
 	Scriptable root;
+	UgUnit rootUnit;
 
 	UgJs ugjs;
 
@@ -53,10 +54,12 @@ public class UgUi {
 	}
 
 	public UgUnit getUnit() {
+		if (rootUnit != null)
+			return rootUnit;
 		Context cx = Context.enter();
-		UgUnit unit = toUnit(cx, root);
+		rootUnit = toUnit(cx, root);
 		Context.exit();
-		return unit;
+		return rootUnit;
 	}
 
 	private UgUnit toUnit(Context cx, Scriptable scriptable) {
