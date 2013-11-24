@@ -40,6 +40,7 @@ public class UnitSimpleValue {
 		Assert.assertEquals("img_a", unit.preloadImg[0]);
 		Assert.assertEquals("img_b", unit.preloadImg[1]);
 		Assert.assertEquals("img_c", unit.preloadImg[2]);
+		Assert.assertEquals("imgg", unit.img);
 	}
 
 	class Pal extends UgPal {

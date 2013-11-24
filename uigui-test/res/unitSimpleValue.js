@@ -18,6 +18,7 @@
 		alpha: 0.5,
 		
 		preloadImg:["img_a","img_b","img_c"],
+		img:"imgg"
 	};
 
 });
