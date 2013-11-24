@@ -5,6 +5,7 @@ import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -187,13 +188,13 @@ public class UgUi {
 	}
 
 	public List<String> getPreloadImgList() {
-		LinkedList<String> ret = new LinkedList<>();
+		HashSet<String> ret = new HashSet<>();
 		UgUnit u = getUnit();
 		fillPreloadImgList(ret, u);
-		return ret;
+		return Arrays.asList(ret.toArray(new String[0]));
 	}
 
-	private static void fillPreloadImgList(List<String> ret, UgUnit unit) {
+	private static void fillPreloadImgList(HashSet<String> ret, UgUnit unit) {
 		if (unit.img != null) {
 			ret.add(unit.img);
 		}
