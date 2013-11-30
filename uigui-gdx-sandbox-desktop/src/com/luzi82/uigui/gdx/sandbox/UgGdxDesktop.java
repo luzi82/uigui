@@ -24,6 +24,11 @@ public class UgGdxDesktop {
 			return Gdx.files.internal(resourceId).reader();
 		}
 
+		@Override
+		public void log(String message) {
+			System.err.println(message);
+		}
+
 	}
 
 }

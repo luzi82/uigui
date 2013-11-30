@@ -120,6 +120,9 @@ public class Konata0 {
 			return new FileReader(resourceId);
 		}
 
+		@Override
+		public void log(String message) {
+		}
 	}
 
 }

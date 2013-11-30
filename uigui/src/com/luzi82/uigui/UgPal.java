@@ -13,4 +13,6 @@ public abstract class UgPal {
 
 	public abstract Reader getReader(String resourceId) throws IOException;
 
+	public abstract void log(String message);
+
 }

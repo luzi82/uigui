@@ -74,6 +74,10 @@ public class CenterLogo {
 			return new FileReader(resourceId);
 		}
 
+		@Override
+		public void log(String message) {
+		}
+
 	}
 
 }

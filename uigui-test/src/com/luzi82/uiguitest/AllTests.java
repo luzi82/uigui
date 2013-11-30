@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ CenterLogo.class, Konata0.class, UnitSimpleValue.class })
+@SuiteClasses({ CenterLogo.class, Konata0.class, UnitSimpleValue.class, Log.class })
 public class AllTests {
 
 }

@@ -50,6 +50,10 @@ public class UnitSimpleValue {
 			return new FileReader(resourceId);
 		}
 
+		@Override
+		public void log(String message) {
+		}
+
 	}
 
 }
