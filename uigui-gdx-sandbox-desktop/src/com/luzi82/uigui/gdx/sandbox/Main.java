@@ -10,7 +10,9 @@ public class Main {
 		cfg.useGL20 = false;
 		cfg.width = 480;
 		cfg.height = 320;
-		
-		new LwjglApplication(new SandboxGame(), cfg);
+
+		UgGdxDesktop.Pal pal = new UgGdxDesktop.Pal();
+
+		new LwjglApplication(new SandboxGame(pal), cfg);
 	}
 }

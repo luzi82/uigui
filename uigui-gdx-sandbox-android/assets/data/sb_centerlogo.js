@@ -6,7 +6,7 @@
 	var imgSize = function(){ return minSize()/PHI; };
 	
 	return {
-		clearColor: "#ff7f7f7f7f",
+		clearColor: "#ff7f7f7f",
 		child: [{
 		        img: "data/libgdx.png",
 		        get x0(){return Math.round((pal.width-imgSize())/2);},
