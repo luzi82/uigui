@@ -49,13 +49,13 @@ public class CenterLogo {
 	}
 
 	@Test
-	public void centerLogo() throws IOException {
+	public void centerLogo0() throws IOException {
 		Pal pal = new Pal();
 		pal.mm = 10;
 		pal.width = 800;
 		pal.height = 600;
 
-		UgUi ui = new UgUi("res/sb_centerlogo.js", pal, null);
+		UgUi ui = new UgUi("res/sb_centerlogo0.js", pal, null);
 
 		UgUnit root = ui.getUnit();
 
