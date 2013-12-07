@@ -39,6 +39,7 @@ public class UgUi {
 		ugjs = new UgJs();
 
 		Context cx = Context.enter();
+		cx.setOptimizationLevel(-1);
 
 		scope = cx.initStandardObjects();
 
@@ -61,6 +62,7 @@ public class UgUi {
 		if (rootUnit != null)
 			return rootUnit;
 		Context cx = Context.enter();
+		cx.setOptimizationLevel(-1);
 		rootUnit = toUnit(cx, root);
 		Context.exit();
 		return rootUnit;
@@ -74,7 +76,7 @@ public class UgUi {
 			ret.id = (String) unwrap(scriptable, "id");
 		}
 		if (scriptable.has("enable", scriptable)) {
-			ret.enable = (boolean) unwrap(scriptable, "enable");
+			ret.enable = (Boolean) unwrap(scriptable, "enable");
 		} else {
 			ret.enable = true;
 		}
@@ -188,7 +190,7 @@ public class UgUi {
 	}
 
 	public List<String> getPreloadImgList() {
-		HashSet<String> ret = new HashSet<>();
+		HashSet<String> ret = new HashSet<String>();
 		UgUnit u = getUnit();
 		fillPreloadImgList(ret, u);
 		return Arrays.asList(ret.toArray(new String[0]));

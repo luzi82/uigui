@@ -11,8 +11,6 @@ public class Main {
 		cfg.width = 480;
 		cfg.height = 320;
 
-		UgGdxDesktop.Pal pal = new UgGdxDesktop.Pal();
-
-		new LwjglApplication(new SandboxGame(pal), cfg);
+		new LwjglApplication(new SandboxGame(new UgGdxPal()), cfg);
 	}
 }

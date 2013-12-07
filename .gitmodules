@@ -1,0 +1,6 @@
+[submodule "import/rhino"]
+	path = import/rhino
+	url = https://github.com/mozilla/rhino.git
+[submodule "import/rhino/rhino"]
+	path = import/rhino/rhino
+	url = https://github.com/mozilla/rhino.git
