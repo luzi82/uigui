@@ -70,6 +70,9 @@ public class UgUi {
 		if (scriptable == null)
 			return null;
 		UgUnit ret = new UgUnit();
+		if (scriptable.has("id", scriptable)) {
+			ret.id = (String) unwrap(scriptable, "id");
+		}
 		if (scriptable.has("enable", scriptable)) {
 			ret.enable = (boolean) unwrap(scriptable, "enable");
 		} else {
@@ -112,14 +115,6 @@ public class UgUi {
 		if (scriptable.has("v1", scriptable)) {
 			ret.v1 = ((Number) unwrap(scriptable, "v1")).floatValue();
 		}
-		if (scriptable.has("cursor", scriptable)) {
-			ret.cursor = (boolean) unwrap(scriptable, "cursor");
-		} else {
-			ret.cursor = false;
-		}
-		if (scriptable.has("cursorId", scriptable)) {
-			ret.cursorId = (String) unwrap(scriptable, "cursorId");
-		}
 		if (scriptable.has("refresh", scriptable)) {
 			NativeArray na = (NativeArray) scriptable
 					.get("refresh", scriptable);
@@ -144,6 +139,11 @@ public class UgUi {
 		if (scriptable.has("img", scriptable)) {
 			ret.img = ((String) unwrap(scriptable, "img"));
 		}
+
+		if (scriptable.has("onClick", scriptable)) {
+			ret.onClick = (Function) scriptable.get("onClick", scriptable);
+		}
+
 		if (scriptable.has("child", scriptable)) {
 			NativeArray sv = (NativeArray) scriptable.get("child", scriptable);
 			int svSize = sv.size();
@@ -206,6 +206,54 @@ public class UgUi {
 				fillPreloadImgList(ret, c);
 			}
 		}
+	}
+
+	public void click(float x, float y) {
+		UgUnit unit = getUnit();
+		click(unit, x, y);
+	}
+
+	public boolean click(UgUnit unit, float x, float y) {
+		if (unit.enable == false)
+			return false;
+		if (unit.dx != null)
+			x -= unit.dx;
+		if (unit.dy != null)
+			y -= unit.dy;
+		do {
+			if (unit.onClick == null)
+				break;
+			if (unit.x0 == null)
+				break;
+			if (unit.x1 == null)
+				break;
+			if (unit.y0 == null)
+				break;
+			if (unit.y1 == null)
+				break;
+			if (x < unit.x0)
+				break;
+			if (x > unit.x1)
+				break;
+			if (y < unit.y0)
+				break;
+			if (y > unit.y1)
+				break;
+
+			Context cx = Context.enter();
+			unit.onClick.call(cx, scope, unit.onClick, null);
+			Context.exit();
+
+			return true;
+		} while (false);
+		if (unit.child != null) {
+			for (UgUnit u : unit.child) {
+				if (click(u, x, y)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }

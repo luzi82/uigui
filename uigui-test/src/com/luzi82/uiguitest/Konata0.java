@@ -43,7 +43,7 @@ public class Konata0 {
 		UgUi ui = new UgUi("res/uniqueString.js", new Pal(), null);
 
 		UgUnit unit = ui.getUnit();
-		String v = unit.cursorId;
+		String v = unit.id;
 		Assert.assertNotNull(v);
 		Assert.assertTrue(v.length() > 0);
 	}
@@ -93,8 +93,7 @@ public class Konata0 {
 		Assert.assertEquals(100d, unit.child[0].child[0].child[0].x1, 0.0001);
 		Assert.assertEquals(0d, unit.child[0].child[0].child[0].y0, 0.0001);
 		Assert.assertEquals(100d, unit.child[0].child[0].child[0].y1, 0.0001);
-		Assert.assertEquals(true, unit.child[0].child[0].child[0].cursor);
-		Assert.assertNotNull(unit.child[0].child[0].child[0].cursorId);
+		Assert.assertNotNull(unit.child[0].child[0].child[0].id);
 
 		Assert.assertEquals(19d, unit.child[0].child[0].child[1].x0, 0.0001);
 		Assert.assertEquals(81d, unit.child[0].child[0].child[1].x1, 0.0001);
@@ -105,7 +104,7 @@ public class Konata0 {
 		Assert.assertEquals(0d, unit.child[0].child[0].child[1].v0, 0.0001);
 		Assert.assertEquals(1d, unit.child[0].child[0].child[1].v1, 0.0001);
 		Assert.assertEquals(1, unit.child[0].child[0].child[1].refresh.length);
-		Assert.assertEquals(unit.child[0].child[0].child[0].cursorId,
+		Assert.assertEquals(unit.child[0].child[0].child[0].id,
 				unit.child[0].child[0].child[1].refresh[0]);
 		Assert.assertEquals(0.618d, unit.child[0].child[0].child[1].alpha,
 				0.001);

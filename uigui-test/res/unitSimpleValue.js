@@ -1,6 +1,8 @@
 (function(ug, pal, arg) {
 	
 	return {
+		id: "test_id",
+
 		// enable ignore
 		clearColor:"#11223344",
 		// child ignore
@@ -11,8 +13,7 @@
 		u0:7,u1:8,
 		v0:9,v1:10,
 		
-		cursor: true,
-		cursorId: "test_cur",
+		enableClick: true,
 		refresh: ["ref_a","ref_b","ref_c"],
 		
 		alpha: 0.5,

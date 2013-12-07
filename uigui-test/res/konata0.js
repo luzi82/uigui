@@ -14,11 +14,10 @@
 		var cursorId = ug.uniqueString();
 		
 		var childTouch = {
+			id: cursorId,
 			x0:0, x1:size,
 			y0:0, y1:size,
-			cursor: true,
-			cursorId: cursorId,
-			cursorClick: function(){
+			onClick: function(){
 				state = newState;
 				ug.refresh(REFRESH_STATE);
 			},

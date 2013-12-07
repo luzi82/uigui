@@ -67,6 +67,21 @@ public class CenterLogo {
 
 	}
 
+	@Test
+	public void centerLogo1() throws IOException {
+		Pal pal = new Pal();
+		pal.mm = 10;
+		pal.width = 800;
+		pal.height = 600;
+
+		UgUi ui = new UgUi("res/sb_centerlogo1.js", pal, null);
+
+		ui.click(400, 300);
+
+		Assert.assertEquals("0kxtphUT", pal.lastLog);
+
+	}
+
 	class Pal extends UgPal {
 
 		@Override
@@ -74,8 +89,11 @@ public class CenterLogo {
 			return new FileReader(resourceId);
 		}
 
+		String lastLog;
+
 		@Override
 		public void log(String message) {
+			lastLog = message;
 		}
 
 	}

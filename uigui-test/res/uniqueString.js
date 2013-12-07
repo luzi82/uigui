@@ -1,7 +1,7 @@
 (function(ug, pal, arg) {
 	
 	return {
-		cursorId: ug.uniqueString(),
+		id: ug.uniqueString(),
 	};
 
 });
